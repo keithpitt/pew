@@ -1,3 +1,5 @@
+require_relative "../fundler"
+
 def gem(gem, version)
   require gem
 end
