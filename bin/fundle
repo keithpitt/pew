@@ -2,7 +2,7 @@
 
 this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 dir = File.expand_path(File.join(this_file, "..", "..", "lib"))
-$:.push dir unless $:.include?(dir)
+$:.unshift dir unless $:.include?(dir)
 
 require "fundler"
 require "fundler/setup"
