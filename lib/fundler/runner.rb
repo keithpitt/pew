@@ -17,7 +17,6 @@ module Fundler
 
         if File.exist? bin_path
           cmd = %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" #{bin_path} #{args.join " "}}
-          p cmd
           Kernel.exec cmd
         end
       end
@@ -31,7 +30,7 @@ module Fundler
       @lookup[gem.name] ||= []
       @lookup[gem.name] << gem
 
-      $:.unshift *gem.require_paths
+      $:.unshift *gem.load_paths if gem.installed?
     end
   end
 end

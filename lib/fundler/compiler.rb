@@ -11,9 +11,7 @@ module Fundler
     end
 
     def compile
-      gem.ext_paths.each do |ext_path|
-        extconf = File.join ext_path, "extconf.rb"
-
+      gem.ext_paths.each do |extconf|
         prepare extconf
         make    extconf
       end
@@ -22,7 +20,8 @@ module Fundler
     private
 
     def prepare(extconf)
-      cmd    = "cd #{path extconf} && ruby extconf.rb"
+      name   = File.basename(extconf)
+      cmd    = "cd #{path extconf} && ruby #{name}"
       result = system cmd
 
       unless result

@@ -25,5 +25,4 @@ end
 require_relative "fundler/gem"
 require_relative "fundler/installer"
 require_relative "fundler/runner"
-require_relative "fundler/zip"
 require_relative "fundler/compiler"

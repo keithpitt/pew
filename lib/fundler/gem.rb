@@ -1,5 +1,7 @@
 module Fundler
   class Gem
+    require 'json'
+
     def self.bin_path(gem, bin)
       Fundler.find(gem).bin_path bin
     end
@@ -36,28 +38,36 @@ module Fundler
       File.join Fundler.gem_path, basename
     end
 
+    def meta_data
+      @meta_data ||= JSON.load File.read(meta_data_path)
+    end
+
+    def meta_data_path
+      File.join(gem_path, "fundler.json")
+    end
+
     def bin_path(file = nil)
       path = [ gem_path, "bin", file ].compact
       File.join *path
     end
 
-    def require_paths
-      paths = [ File.join(gem_path, "lib") ]
-      paths.concat ext_paths
+    def load_paths
+      require_paths + ext_paths
+    end
 
-      paths
+    def require_paths
+      meta_data['require_paths'].map { |path| normalize_path path }
     end
 
     def ext_paths
-      ext_path = File.join gem_path, "ext"
-      if Dir.exist?(ext_path)
-        [ ext_path ]
-      else
-        [  ]
-      end
+      meta_data['extensions'].map { |path| normalize_path path }
     end
 
     private
+
+    def normalize_path(path)
+      File.join(gem_path, path)
+    end
 
     def basename
       @basename ||= File.basename(@path, ".*")
