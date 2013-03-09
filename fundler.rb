@@ -99,6 +99,14 @@ class Gem
     false
   end
 
+  def self.path
+    [ Fundler.gem_path ]
+  end
+
+  def self.default_dir
+    Fundler.gem_path
+  end
+
   attr_reader :path, :name, :version
 
   def initialize(path)
