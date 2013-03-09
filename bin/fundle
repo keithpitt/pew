@@ -35,6 +35,7 @@ if command == "install"
 end
 
 if command == "irb" || command == "console"
+  $:.unshift Dir.pwd # Add the current dir to the load path for fun times
   require 'irb'
   ARGV.clear # otherwise all script parameters get passed to IRB
   IRB.start
