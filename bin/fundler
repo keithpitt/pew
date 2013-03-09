@@ -1,7 +1,8 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby --disable=gem
 
 this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
-$:.push File.expand_path(File.join(this_file, "..", "..", "lib"))
+dir = File.expand_path(File.join(this_file, "..", "..", "lib"))
+$:.push dir unless $:.include?(dir)
 
 require "fundler"
 require "fundler/setup"

@@ -15,7 +15,10 @@ module Fundler
       @gems.each do |gem|
         bin_path = File.join gem.bin_path, name
 
-        Kernel.exec "#{bin_path} #{args.join " "}" if File.exist? bin_path
+        if File.exist? bin_path
+          cmd = %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" #{bin_path} #{args.join " "}}
+          Kernel.exec cmd
+        end
       end
     end
 
@@ -27,7 +30,7 @@ module Fundler
       @lookup[gem.name] ||= []
       @lookup[gem.name] << gem
 
-      Fundler.append_load_path gem.require_path
+      $:.unshift gem.require_path
     end
   end
 end

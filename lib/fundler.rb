@@ -8,8 +8,8 @@ module Fundler
     path
   end
 
-  def self.append_load_path(path)
-    $:.unshift path
+  def self.root
+    File.expand_path File.join(__FILE__, "..")
   end
 
   def self.find(gem)
