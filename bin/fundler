@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
+$:.push File.expand_path(File.join(this_file, "..", "..", "lib"))
+
+require "fundler"
+require "fundler/setup"
+
+argv = ARGV.dup
+command = argv.shift
+
+if command == "exec"
+  script = argv[0]
+  args   = argv[1..argv.length]
+
+  FUNDLER.exec script, args
+end
+
+if command == "install"
+  FUNDLER.gems.each do |gem|
+    puts "Installing #{gem.name} (#{gem.version})"
+    gem.install unless gem.installed?
+  end
+end
