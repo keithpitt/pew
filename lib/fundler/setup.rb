@@ -1,7 +1,10 @@
 require_relative "../fundler"
 
 def gem(*args)
-  require gem.first
+  # Not sure whether I have to do anything with this command yet.
+  # Maybe I can just ignore it?
+  # See activerecord-4.0.0.beta1/lib/active_record/connection_adapters/sqlite3_adapter.rb for
+  # an example of how its used.
 end
 
 class Gem < Fundler::Gem

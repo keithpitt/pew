@@ -40,7 +40,6 @@ module Fundler
       if gem.installed?
         gem.require_paths.each do |path|
           unless $:.include?(path)
-            p path
             $:.unshift path
           end
         end
