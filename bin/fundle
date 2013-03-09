@@ -11,10 +11,9 @@ require "fundler"
 # If ruby gems has loaded, reload the bin with rubygems disabled.
 # This feels like a hack.
 begin
-  Gem
-  puts Fundler.command_without_rubygems this_file, argv
-rescue e => NameError
-  p e.message
+  Gem::RUBYGEMS_DIR
+  Kernel.exec Fundler.command_without_rubygems this_file, argv
+rescue NameError
 end
 
 require "fundler/setup"
