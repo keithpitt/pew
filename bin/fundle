@@ -33,3 +33,9 @@ if command == "install"
     gem.install unless gem.installed?
   end
 end
+
+if command == "irb" || command == "console"
+  require 'irb'
+  ARGV.clear # otherwise all script parameters get passed to IRB
+  IRB.start
+end
