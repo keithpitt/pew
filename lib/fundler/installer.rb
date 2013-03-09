@@ -30,7 +30,7 @@ module Fundler
         file.write JSON.generate(meta_data)
       end
 
-      Compiler.new(gem).compile unless gem.ext_paths.empty?
+      Compiler.new(gem).compile unless gem.extensions.empty?
     end
 
     private

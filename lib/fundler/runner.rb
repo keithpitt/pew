@@ -13,12 +13,8 @@ module Fundler
 
     def exec(name, args = [])
       @gems.each do |gem|
-        bin_path = File.join gem.bin_path, name
-
-        if File.exist? bin_path
-          cmd = %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" #{bin_path} #{args.join " "}}
-          Kernel.exec cmd
-        end
+        bin = File.join gem.bindir, name
+        Kernel.exec Fundler.command_without_rubygems(bin, args) if File.exist? bin
       end
     end
 

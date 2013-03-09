@@ -46,20 +46,19 @@ module Fundler
       File.join(gem_path, "fundler.json")
     end
 
-    def bin_path(file = nil)
-      path = [ gem_path, "bin", file ].compact
-      File.join *path
+    def bindir
+      normalize_path meta_data['bindir']
     end
 
     def load_paths
-      require_paths + ext_paths
+      require_paths + extensions.map { |conf| File.dirname(conf) }
     end
 
     def require_paths
       meta_data['require_paths'].map { |path| normalize_path path }
     end
 
-    def ext_paths
+    def extensions
       meta_data['extensions'].map { |path| normalize_path path }
     end
 

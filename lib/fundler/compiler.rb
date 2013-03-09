@@ -11,7 +11,7 @@ module Fundler
     end
 
     def compile
-      gem.ext_paths.each do |extconf|
+      gem.extensions.each do |extconf|
         prepare extconf
         make    extconf
       end
