@@ -23,6 +23,7 @@ module Fundler
 end
 
 require_relative "fundler/gem"
+require_relative "fundler/bundler"
 require_relative "fundler/installer"
 require_relative "fundler/runner"
 require_relative "fundler/compiler"
