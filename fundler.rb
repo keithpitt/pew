@@ -95,6 +95,10 @@ class Gem
     Fundler.find(gem).bin_path bin
   end
 
+  def self.try_activate(*args)
+    false
+  end
+
   attr_reader :path, :name, :version
 
   def initialize(path)
