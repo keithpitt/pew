@@ -37,7 +37,9 @@ module Fundler
       @lookup[gem.name] ||= []
       @lookup[gem.name] << gem
 
-      $:.unshift *gem.load_paths if gem.installed?
+      if gem.installed?
+        gem.require_paths.each { |path| $:.unshift path unless $:.include?(path) }
+      end
     end
   end
 end

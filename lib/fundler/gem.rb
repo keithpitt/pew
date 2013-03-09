@@ -50,10 +50,6 @@ module Fundler
       normalize_path meta_data['bindir']
     end
 
-    def load_paths
-      require_paths + extensions.map { |conf| File.dirname(conf) }
-    end
-
     def require_paths
       meta_data['require_paths'].map { |path| normalize_path path }
     end
