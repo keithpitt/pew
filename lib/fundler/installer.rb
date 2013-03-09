@@ -21,7 +21,7 @@ module Fundler
       FileUtils.mkdir_p gem_path
       Zip.extract data_path, gem_path
 
-      Compiler.new(gem).compile if gem.has_extensions?
+      Compiler.new(gem).compile unless gem.ext_paths.empty?
     end
   end
 end

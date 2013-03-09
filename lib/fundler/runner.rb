@@ -31,8 +31,7 @@ module Fundler
       @lookup[gem.name] ||= []
       @lookup[gem.name] << gem
 
-      $:.unshift gem.require_path
-      $:.unshift gem.ext_path if gem.has_extensions?
+      $:.unshift *gem.require_paths
     end
   end
 end

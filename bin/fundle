@@ -1,13 +1,24 @@
-#!/usr/bin/env ruby --disable=gem
+#!/usr/bin/env ruby
 
 this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 dir = File.expand_path(File.join(this_file, "..", "..", "lib"))
 $:.unshift dir unless $:.include?(dir)
 
+argv = ARGV.dup
+
 require "fundler"
+
+# If ruby gems has loaded, reload the bin with rubygems disabled.
+# This feels like a hack.
+begin
+  Gem
+  puts Fundler.command_without_rubygems this_file, argv
+rescue e => NameError
+  p e.message
+end
+
 require "fundler/setup"
 
-argv = ARGV.dup
 command = argv.shift
 
 if command == "exec"

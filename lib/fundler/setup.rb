@@ -1,7 +1,7 @@
 require_relative "../fundler"
 
-def gem(gem, version)
-  require gem
+def gem(*args)
+  require gem.first
 end
 
 class Gem < Fundler::Gem

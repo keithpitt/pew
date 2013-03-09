@@ -9,6 +9,10 @@ module Fundler
     path
   end
 
+  def self.command_without_rubygems(command, args = [])
+    %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" #{command} #{args.join " "}}
+  end
+
   def self.root
     File.expand_path File.join(__FILE__, "..")
   end
@@ -21,6 +25,5 @@ end
 require_relative "fundler/gem"
 require_relative "fundler/installer"
 require_relative "fundler/runner"
-require_relative "fundler/setup"
 require_relative "fundler/zip"
 require_relative "fundler/compiler"

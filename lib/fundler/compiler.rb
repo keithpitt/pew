@@ -11,20 +11,11 @@ module Fundler
     end
 
     def compile
-      ext_paths = [
-        [ "extconf.rb" ],
-        [ "#{gem.name}", "extconf.rb" ],
-        [ "ffi_c", "extconf.rb" ],
-        [ "unicorn_http", "extconf.rb" ]
-      ].map { |p| File.join gem.ext_path, *p }
+      gem.ext_paths.each do |ext_path|
+        extconf = File.join ext_path, "extconf.rb"
 
-      extconf = ext_paths.find { |path| File.exist?(path) }
-
-      if extconf
         prepare extconf
         make    extconf
-      else
-        puts "ERROROROR!!11: Could not find extconf for #{gem.name} #{gem.require_path}"
       end
     end
 
