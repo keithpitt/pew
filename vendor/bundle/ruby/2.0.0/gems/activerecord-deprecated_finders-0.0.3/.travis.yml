@@ -1,8 +1,0 @@
-language: ruby
-rvm:
-  - 1.9.3
-notifications:
-  email:
-    - j@jonathanleighton.com
-before_install:
-  - gem install bundler
