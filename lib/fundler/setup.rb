@@ -10,6 +10,6 @@ end
 
 FUNDLER = Fundler::Runner.new
 
-Dir["vendor/cache/*"].each do |path|
+Dir["vendor/cache/*.gem"].each do |path|
   FUNDLER.require path
 end

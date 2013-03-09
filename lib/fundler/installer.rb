@@ -20,6 +20,8 @@ module Fundler
       data_path = File.join temp_path, "data.tar.gz"
       FileUtils.mkdir_p gem_path
       Zip.extract data_path, gem_path
+
+      Compiler.new(gem).compile if gem.has_extensions?
     end
   end
 end

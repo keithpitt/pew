@@ -5,6 +5,7 @@ module Fundler
     path = File.join ENV['HOME'], ".fundler", "gems"
     FileUtils.mkdir_p path unless Dir.exist? path
 
+    # Once we can build c-extensions - use this one.
     path
   end
 
@@ -22,3 +23,4 @@ require_relative "fundler/installer"
 require_relative "fundler/runner"
 require_relative "fundler/setup"
 require_relative "fundler/zip"
+require_relative "fundler/compiler"

@@ -27,6 +27,10 @@ module Fundler
       Dir.exist?(gem_path)
     end
 
+    def has_extensions?
+      Dir.exist?(ext_path)
+    end
+
     def install
       installer = Installer.new(self)
       installer.install
@@ -43,6 +47,10 @@ module Fundler
 
     def require_path
       File.join gem_path, "lib"
+    end
+
+    def ext_path
+      File.join gem_path, "ext"
     end
 
     private
