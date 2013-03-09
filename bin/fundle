@@ -12,11 +12,12 @@ require "fundler"
 # This feels like a hack.
 begin
   Gem::RUBYGEMS_DIR
+  puts "Ruby gems is loaded. Reloading with it disabled. This is a hack"
   Kernel.exec Fundler.command_without_rubygems this_file, argv
 rescue NameError
 end
 
-require "fundler/setup"
+require 'fundler/setup'
 
 command = argv.shift
 
@@ -25,18 +26,17 @@ if command == "exec"
   args   = argv[1..argv.length]
 
   FUNDLER.exec script, args
-end
-
-if command == "install"
+elsif command == "install"
   FUNDLER.gems.each do |gem|
     puts "Installing #{gem.name} (#{gem.version})"
     gem.install unless gem.installed?
   end
-end
-
-if command == "irb" || command == "console"
+elsif command == "irb" || command == "console"
   $:.unshift Dir.pwd # Add the current dir to the load path for fun times
   require 'irb'
   ARGV.clear # otherwise all script parameters get passed to IRB
   IRB.start
+else
+  puts "no command! `#{command}`"
+  exit 1
 end
