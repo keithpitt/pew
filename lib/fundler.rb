@@ -10,7 +10,7 @@ module Fundler
   end
 
   def self.command_without_rubygems(command, args = [])
-    %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" #{command} #{args.join " "}}
+    %{RUBYOPT="--disable=gem -I#{Fundler.root} -rfundler/setup" ruby #{command} #{args.join " "}}
   end
 
   def self.root

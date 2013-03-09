@@ -12,9 +12,20 @@ module Fundler
     end
 
     def exec(name, args = [])
-      @gems.each do |gem|
-        bin = File.join gem.bindir, name
-        Kernel.exec Fundler.command_without_rubygems(bin, args) if File.exist? bin
+      bin = nil
+      if File.exist?(name)
+        bin = name
+      else
+        @gems.each do |gem|
+          path = File.join gem.bindir, name
+          bin = path if File.exist? path
+        end
+      end
+
+      if bin
+        Kernel.exec Fundler.command_without_rubygems(bin, args)
+      else
+        puts "Couldnt find #{name} to run"
       end
     end
 
