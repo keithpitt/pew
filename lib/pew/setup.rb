@@ -1,4 +1,4 @@
-require_relative "../fundler"
+require_relative "../pew"
 
 def gem(*args)
   # Not sure whether I have to do anything with this command yet.
@@ -7,24 +7,24 @@ def gem(*args)
   # an example of how its used.
 end
 
-class Gem < Fundler::Gem
+class Gem < Pew::Gem
   class Specification; end
   class LoadError < StandardError; end
 
   def self.available?(gem_name, version_string)
-    FUNDLER.loaded_specs[gem_name]
+    PEW.loaded_specs[gem_name]
   end
 
   def self.loaded_specs
-    FUNDLER.loaded_specs
+    PEW.loaded_specs
   end
 end
 
-class Bundler < Fundler::Bundler
+class Bundler < Pew::Bundler
 end
 
-FUNDLER = Fundler::Runner.new
+PEW = Pew::Runner.new
 
 Dir["vendor/cache/*.gem"].each do |path|
-  FUNDLER.require path
+  PEW.require path
 end

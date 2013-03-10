@@ -6,18 +6,18 @@ $:.unshift dir unless $:.include?(dir)
 
 argv = ARGV.dup
 
-require "fundler"
+require "pew"
 
 # If ruby gems has loaded, reload the bin with rubygems disabled.
 # This feels like a hack.
 begin
   Gem::RUBYGEMS_DIR
   puts "Ruby gems is loaded. Reloading with it disabled. This is a hack"
-  Kernel.exec Fundler.command_without_rubygems this_file, argv
+  Kernel.exec Pew.command_without_rubygems this_file, argv
 rescue NameError
 end
 
-require 'fundler/setup'
+require 'pew/setup'
 
 command = argv.shift
 
@@ -25,9 +25,9 @@ if command == "exec"
   script = argv[0]
   args   = argv[1..argv.length]
 
-  FUNDLER.exec script, args
+  PEW.exec script, args
 elsif command == "install"
-  FUNDLER.gems.each do |gem|
+  PEW.gems.each do |gem|
     puts "Installing #{gem.name} (#{gem.version})"
     gem.install unless gem.installed?
   end

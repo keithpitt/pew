@@ -1,7 +1,7 @@
-module Fundler
+module Pew
   class Bundler
     def self.require(*args)
-      FUNDLER.gems.each do |gem|
+      PEW.gems.each do |gem|
         if gem.meta_data['railties']
           name = gem.meta_data['name']
           begin

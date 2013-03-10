@@ -1,4 +1,4 @@
-module Fundler
+module Pew
   class Runner
     attr_accessor :gems, :loaded_specs
 
@@ -23,7 +23,7 @@ module Fundler
       end
 
       if bin
-        Kernel.exec Fundler.command_without_rubygems(bin, args)
+        Kernel.exec Pew.command_without_rubygems(bin, args)
       else
         puts "Couldnt find #{name} to run"
       end

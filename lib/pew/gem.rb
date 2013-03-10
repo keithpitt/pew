@@ -1,9 +1,9 @@
-module Fundler
+module Pew
   class Gem
     require 'json'
 
     def self.bin_path(gem, bin)
-      Fundler.find(gem).bin_path bin
+      Pew.find(gem).bin_path bin
     end
 
     def self.try_activate(*args)
@@ -11,11 +11,11 @@ module Fundler
     end
 
     def self.path
-      [ Fundler.gem_path ]
+      [ Pew.gem_path ]
     end
 
     def self.default_dir
-      Fundler.gem_path
+      Pew.gem_path
     end
 
     attr_reader :path, :name, :version
@@ -39,7 +39,7 @@ module Fundler
     end
 
     def gem_path
-      File.join Fundler.gem_path, basename
+      File.join Pew.gem_path, basename
     end
 
     def meta_data
@@ -47,7 +47,7 @@ module Fundler
     end
 
     def meta_data_path
-      File.join(gem_path, "fundler.json")
+      File.join(gem_path, "pew.json")
     end
 
     def files

@@ -1,4 +1,4 @@
-module Fundler
+module Pew
   class Installer
     require 'fileutils'
     require 'tmpdir'

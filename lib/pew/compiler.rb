@@ -1,4 +1,4 @@
-module Fundler
+module Pew
   class Compiler
     attr_accessor :gem
 
