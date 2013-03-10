@@ -3,8 +3,9 @@ module Fundler
     attr_accessor :gems
 
     def initialize
-      @gems   = []
-      @lookup = {}
+      @gems     = []
+      @lookup   = {}
+      @required = {}
     end
 
     def find(name)
@@ -39,8 +40,9 @@ module Fundler
 
       if gem.installed?
         gem.require_paths.each do |path|
-          unless $:.include?(path)
+          unless @required[path]
             $:.unshift path
+            @required[path] = true
           end
         end
       end

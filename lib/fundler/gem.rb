@@ -46,6 +46,10 @@ module Fundler
       File.join(gem_path, "fundler.json")
     end
 
+    def files
+      meta_data['files']
+    end
+
     def bindir
       normalize_path meta_data['bindir']
     end
