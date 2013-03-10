@@ -7,7 +7,7 @@ module Fundler
           begin
             Kernel.require name
           rescue LoadError
-            puts "Could not autoload load #{name}"
+            # puts "Could not autoload load #{name}"
           end
         end
       end
