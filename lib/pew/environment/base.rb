@@ -4,6 +4,7 @@ module Pew
       attr_accessor :gems, :loaded_specs
 
       def initialize
+        @gems         = []
         @loaded_specs = {}
       end
 
@@ -14,6 +15,7 @@ module Pew
       def activate(gem)
         gem.activate
         @loaded_specs[gem.name] = gem
+        @gems << gem
       end
     end
   end

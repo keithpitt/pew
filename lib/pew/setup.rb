@@ -24,7 +24,3 @@ class Bundler < Pew::Bundler
 end
 
 PEW = Pew::Runner.new
-
-Dir["vendor/cache/*.gem"].each do |path|
-  PEW.require path
-end

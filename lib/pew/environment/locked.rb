@@ -2,6 +2,7 @@ module Pew
   module Environment
     class Locked < Base
       def require(path)
+        raise path.inspect
         gem = Gem.new(path)
         @gems << gem
 

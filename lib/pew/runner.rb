@@ -2,16 +2,20 @@ module Pew
   class Runner
     attr_accessor :gems, :loaded_specs
 
-    def initialize
-      @environment = Environment::All.new
+    def environment
+      @environment ||= if Dir.exist?("vendor/cache")
+                         Environment::Locked.new
+                       else
+                         Environment::All.new
+                       end
     end
 
     def find(name)
-      @environment.find(name)
+      environment.find(name)
     end
 
     def require(path)
-      @environment.require(path)
+      environment.require(path)
     end
 
     def exec(name, args = [])
@@ -19,7 +23,7 @@ module Pew
       if File.exist?(name)
         bin = name
       else
-        @environment.gems.each do |gem|
+        environment.gems.each do |gem|
           path = File.join gem.bindir, name
           bin = path if File.exist? path
         end
