@@ -31,10 +31,9 @@ module Fundler
 
     def require(path)
       gem = Gem.new(path)
+      @gems << gem
 
       if gem.installed?
-        @gems << gem
-
         unless @loaded_specs[gem.name]
           gem.require_paths.each do |path|
             $:.unshift path

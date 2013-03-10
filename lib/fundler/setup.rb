@@ -8,7 +8,12 @@ def gem(*args)
 end
 
 class Gem < Fundler::Gem
+  class Specification; end
   class LoadError < StandardError; end
+
+  def self.available?(gem_name, version_string)
+    FUNDLER.loaded_specs[gem_name]
+  end
 
   def self.loaded_specs
     FUNDLER.loaded_specs
