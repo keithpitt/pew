@@ -22,9 +22,19 @@ require 'pew/setup'
 command = argv.shift
 
 if command == "install"
-  PEW.gems.each do |gem|
-    puts "Installing #{gem.name} (#{gem.version})"
-    gem.install unless gem.installed?
+  # If no gems are passed to the command line, try and install
+  # from Gemfile.
+  if argv.empty?
+    PEW.gems.each do |gem|
+      puts "Installing #{gem.name} (#{gem.version})"
+      gem.install unless gem.installed?
+    end
+  else
+    argv.each do |gem_path|
+      gem = Gem.new(File.expand_path(gem_path))
+      puts "Installing #{gem.name} (#{gem.version})"
+      gem.install unless gem.installed?
+    end
   end
 elsif command == "irb" || command == "console"
   $:.unshift Dir.pwd # Add the current dir to the load path for fun times
