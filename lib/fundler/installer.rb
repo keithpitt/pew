@@ -26,6 +26,14 @@ module Fundler
       meta_data_path = File.join(temp_path, "metadata.gz")
       meta_data      = read_meta_data(meta_data_path)
 
+      meta_data['require_paths'].each do |require_path|
+        path = File.join gem_path, require_path
+        railties = `grep -R "Rails::Railtie" #{path}`.chomp
+        unless railties.empty?
+          meta_data['railties'] = true
+        end
+      end
+
       File.open gem.meta_data_path, 'w' do |file|
         file.write JSON.generate(meta_data)
       end

@@ -9,6 +9,10 @@ end
 
 class Gem < Fundler::Gem
   class LoadError < StandardError; end
+
+  def self.loaded_specs
+    FUNDLER.loaded_specs
+  end
 end
 
 class Bundler < Fundler::Bundler

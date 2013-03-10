@@ -21,8 +21,12 @@ module Fundler
     attr_reader :path, :name, :version
 
     def initialize(path)
-      @path           = path
-      @name, @version = basename.split("-")
+      @path = path
+
+      # Extract name/version from my-gem-name-1.3.5
+      match    = basename.match(/\A(.+)-(.+)\z/)
+      @name    = match[1]
+      @version = match[2]
     end
 
     def installed?

@@ -1,15 +1,14 @@
 module Fundler
   class Runner
-    attr_accessor :gems
+    attr_accessor :gems, :loaded_specs
 
     def initialize
-      @gems     = []
-      @lookup   = {}
-      @required = {}
+      @gems         = []
+      @loaded_specs = {}
     end
 
     def find(name)
-      @lookup[name].first
+      @loaded_specs[name]
     end
 
     def exec(name, args = [])
@@ -33,17 +32,15 @@ module Fundler
     def require(path)
       gem = Gem.new(path)
 
-      @gems << gem
-
-      @lookup[gem.name] ||= []
-      @lookup[gem.name] << gem
-
       if gem.installed?
-        gem.require_paths.each do |path|
-          unless @required[path]
+        @gems << gem
+
+        unless @loaded_specs[gem.name]
+          gem.require_paths.each do |path|
             $:.unshift path
-            @required[path] = true
           end
+
+          @loaded_specs[gem.name] = gem
         end
       end
     end
