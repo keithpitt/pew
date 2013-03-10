@@ -27,3 +27,9 @@ require_relative "pew/bundler"
 require_relative "pew/installer"
 require_relative "pew/runner"
 require_relative "pew/compiler"
+
+require_relative "pew/environment/base"
+require_relative "pew/environment/all"
+require_relative "pew/environment/locked"
+
+require_relative "pew/kernel/require"

@@ -3,12 +3,15 @@ module Pew
     attr_accessor :gems, :loaded_specs
 
     def initialize
-      @gems         = []
-      @loaded_specs = {}
+      @environment = Environment::All.new
     end
 
     def find(name)
-      @loaded_specs[name]
+      @environment.find(name)
+    end
+
+    def require(path)
+      @environment.require(path)
     end
 
     def exec(name, args = [])
@@ -16,7 +19,7 @@ module Pew
       if File.exist?(name)
         bin = name
       else
-        @gems.each do |gem|
+        @environment.gems.each do |gem|
           path = File.join gem.bindir, name
           bin = path if File.exist? path
         end
@@ -26,21 +29,6 @@ module Pew
         Kernel.exec Pew.command_without_rubygems(bin, args)
       else
         puts "Couldnt find #{name} to run"
-      end
-    end
-
-    def require(path)
-      gem = Gem.new(path)
-      @gems << gem
-
-      if gem.installed?
-        unless @loaded_specs[gem.name]
-          gem.require_paths.each do |path|
-            $:.unshift path
-          end
-
-          @loaded_specs[gem.name] = gem
-        end
       end
     end
   end

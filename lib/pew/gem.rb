@@ -29,6 +29,24 @@ module Pew
       @version = match[2]
     end
 
+    def activate
+      require_paths.each do |path|
+        $:.unshift path
+      end
+
+      begin
+        pew_original_require name
+      rescue LoadError
+        p 'ah'
+      end
+
+      @activated = true
+    end
+
+    def activated?
+      @activated || false
+    end
+
     def installed?
       Dir.exist?(gem_path)
     end
@@ -73,7 +91,7 @@ module Pew
     end
 
     def basename
-      @basename ||= File.basename(@path, ".*")
+      @basename ||= File.basename(@path, ".gem")
     end
   end
 end
