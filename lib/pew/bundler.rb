@@ -11,7 +11,7 @@ module Pew
           end
         end
       end
-      puts "Calling Bundler#require with #{args.inspect}"
+      # puts "Calling Bundler#require with #{args.inspect}"
     end
   end
 end
